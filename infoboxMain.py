@@ -28,7 +28,7 @@ def main():
     fb_search(query)
 
 def fb_search(query):
-    inputQuery = 'Lord of the Rings'
+    inputQuery = 'Bill Gates'
     inputQuery = urllib.quote(inputQuery);
     key = 'AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY'
     #param = { 'query' : inputQuery, 'key' : key}   
@@ -40,12 +40,30 @@ def fb_search(query):
     content = response.read()
     #content contains the json response from Bing.
     json_result = json.loads(content)
-    print json_result
+    #print json_result
+    create_infobox_main(json_result)   
+
+def create_infobox_main(search_result):
+    # find all the mids from the initial query
+    levels = ['result', 'mid']
+    midList = search_mids(search_result)
+    typeIdStr = "/type/object/type"
     # the mids from this result should be filtered for having one of the 6 entity types given
     # take the top relevant mid and search for it
     # find all the 6 entity types in this entity
     # Get all the Properties Of Interest of each entity types
     # Create the infobox output
 
+def search_mids(search_result):
+    #ex = tmpRes[u'result'].encode("iso-8859-15", "replace")
+    #print ex
+    resultList = search_result['result']
+    midList = []
+    for result in resultList:
+        print '============================='
+        print result['mid']
+        midList.append(result['mid'])
+    return midList
+        
 if __name__ == "__main__":
     main()
