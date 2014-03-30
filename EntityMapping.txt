@@ -1,0 +1,18 @@
+/people/person	Person
+/book/author	Author
+/film/actor
+/tv/tv_actor	Actor
+/organization/organization_founder
+/business/board_member	BusinessPerson
+/sports/sports_league	League
+/sports/sports_team
+/sports/professional_sports_team	SportsTeam
+
+personTypeList = ['/people/person']
+authorTypeList = ['/book/author']
+actorTypeList = ['/film/actor', '/tv/tv_actor']
+bussPersonTypeList = ['/organization/organization_founder', '/business/board_member']
+leagueTypeList = ['/sports/sports_league']
+sportsTeamTypeList = ['/sports/sports_team', '/sports/professional_sports_team']
+
+entityTypes = {}
