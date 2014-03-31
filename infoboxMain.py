@@ -1,6 +1,14 @@
-# -*- coding: utf-8 -*-
+'''
+Created on Mar 30, 2014
+
+@author: Abhinav
+'''
 import sys
-from freebaseUtil import *
+from Person import printPersonInfo
+from Author import printAuthorInfo
+from freebaseUtil import search_api, topic_api
+from Actor import printActorInfo
+from BussPerson import printBussPerInfo
 
 key = ''
 personTypeList = ['/people/person']
@@ -11,7 +19,6 @@ leagueTypeList = ['/sports/sports_league']
 sportsTeamTypeList = ['/sports/sports_team', '/sports/professional_sports_team']
 entityTypes = personTypeList + authorTypeList + actorTypeList + bussPersonTypeList + leagueTypeList + sportsTeamTypeList
 
-personPropList = ['/people/person']
 authorPropList = ['/book/author']
 actorPropList = ['/film/actor', '/tv/tv_actor']
 bussPersonPropList = ['/organization/organization_founder', '/business/board_member']
@@ -38,33 +45,51 @@ def main():
     #    sys.exit()
     global key
     key  = 'AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY'
-    query = 'Bill Gates'
+    query = 'bill gates'
     # search the query
     search_result = search_api(query,key)
+    #print search_result
     # find all the mids from the initial query
     midList = search_mids(search_result)
     # the mids from this result should be filtered for having one of the 6 entity types given
-    # take the top relevant mid and search for it
+    # take the top relevant mid and search for it        
+    # find all the 6 entity types in this entity
     [mid, topicJson, types] = search_top_topic(midList)
+    #print topicJson
     if mid == None:
         print 'No relevant type found for this query'
         sys.exit()
     
     print mid
     print types
-    
-    # find all the 6 entity types in this entity
     # Get all the Properties Of Interest of each entity types
+    isActor = False
+    isBussPerson = False
+    isTeam = False    
+    for type in types:
+        if type in personTypeList:
+            printPersonInfo(topicJson)
+    for type in types:
+        if type in authorTypeList:
+            printAuthorInfo(topicJson)
+    for type in types:
+        if type in actorTypeList:
+            if isActor == False:
+                printActorInfo(topicJson)
+                isActor = True
+    for type in types:
+        if type in bussPersonTypeList:
+            if isBussPerson == False:
+                printBussPerInfo(topicJson)
+                isBussPerson = True
     # Create the infobox output
 
 def search_mids(search_result):
-    #ex = tmpRes[u'result'].encode("iso-8859-15", "replace")
-    #print ex
     resultList = search_result['result']
     midList = []
     for result in resultList:
-        print '============================='
-        print result['mid']
+        #print '============================='
+        #print result['mid']
         midList.append(result['mid'])
     return midList
         
