@@ -107,3 +107,35 @@ def getCompoundPropertyList(topicJson,topValue, value2List):
         return result
     else:
         return None
+
+def getCompoundPropertyListMulti(topicJson,topValue, value2List):
+    propDict = topicJson['property']
+    if topValue in propDict.keys():
+        values = propDict[topValue]['values']
+        result = []
+        for entry in values:
+            resEntry = []
+            for value2 in value2List:
+                valueEntry = []
+                if value2 in entry['property'].keys():
+                    valuesComp = entry['property'][value2]['values']
+                    if len(valuesComp) == 0:
+                        valueEntry.append('')
+                        #print 'here1'
+                    for entryComp in valuesComp:
+                        if 'value' in entryComp.keys():
+                            val = entryComp['value'].encode("iso-8859-15", "replace")
+                            #print val
+                            valueEntry.append(val)
+                        else:
+                            val = entryComp['text'].encode("iso-8859-15", "replace")
+                            #print val
+                            valueEntry.append(val)
+                    resEntry.append(valueEntry)
+                else:
+                    resEntry.append('') # if info not available yet like case if marriage still going on
+                    #print 'here2'
+            result.append(resEntry)
+        return result
+    else:
+        return None

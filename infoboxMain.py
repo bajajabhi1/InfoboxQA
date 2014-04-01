@@ -9,6 +9,8 @@ from Author import printAuthorInfo
 from freebaseUtil import search_api, topic_api
 from Actor import printActorInfo
 from BussPerson import printBussPerInfo
+from League import printLeagueInfo
+from SportsTeam import printSportsTeamInfo
 
 key = ''
 personTypeList = ['/people/person']
@@ -45,7 +47,7 @@ def main():
     #    sys.exit()
     global key
     key  = 'AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY'
-    query = 'tom hanks'
+    query = 'Miami Heat'
     # search the query
     search_result = search_api(query,key)
     #print search_result
@@ -63,6 +65,7 @@ def main():
     print mid
     print types
     # Get all the Properties Of Interest of each entity types
+    # Create the infobox output
     headerStr = getHeader(types)
     isActor = False
     isBussPerson = False
@@ -83,7 +86,14 @@ def main():
             if isBussPerson == False:
                 printBussPerInfo(topicJson)
                 isBussPerson = True
-    # Create the infobox output
+    for type in types:
+        if type in leagueTypeList:
+            printLeagueInfo(topicJson,headerStr)
+    for type in types:
+        if type in sportsTeamTypeList:
+            if isTeam == False:
+                printSportsTeamInfo(topicJson,headerStr)
+                isTeam = True
 
 def getHeader(types):
     headerStr = '('
