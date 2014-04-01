@@ -45,7 +45,7 @@ def main():
     #    sys.exit()
     global key
     key  = 'AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY'
-    query = 'bill gates'
+    query = 'tom hanks'
     # search the query
     search_result = search_api(query,key)
     #print search_result
@@ -63,12 +63,13 @@ def main():
     print mid
     print types
     # Get all the Properties Of Interest of each entity types
+    headerStr = getHeader(types)
     isActor = False
     isBussPerson = False
     isTeam = False    
     for type in types:
         if type in personTypeList:
-            printPersonInfo(topicJson)
+            printPersonInfo(topicJson,headerStr)
     for type in types:
         if type in authorTypeList:
             printAuthorInfo(topicJson)
@@ -83,6 +84,36 @@ def main():
                 printBussPerInfo(topicJson)
                 isBussPerson = True
     # Create the infobox output
+
+def getHeader(types):
+    headerStr = '('
+    isActor = False
+    isBussPerson = False
+    isTeam = False    
+    for type in types:
+        if type in authorTypeList:
+            headerStr = headerStr + 'AUTHOR, '
+    for type in types:
+        if type in actorTypeList:
+            if isActor == False:
+                headerStr = headerStr + 'ACTOR, '
+                isActor = True
+    for type in types:
+        if type in bussPersonTypeList:
+            if isBussPerson == False:
+                headerStr = headerStr + 'BUSINESS_PERSON, '
+                isBussPerson = True
+    for type in types:
+        if type in leagueTypeList:
+            headerStr = headerStr + 'LEAGUE, '
+    for type in types:
+        if type in sportsTeamTypeList:
+            if isTeam == False:
+                headerStr = headerStr + 'SPORTS TEAM, '
+                isTeam = True
+    if headerStr[len(headerStr)-2] == ",":
+        headerStr = headerStr[0:len(headerStr)-2]        
+    return headerStr + ')'
 
 def search_mids(search_result):
     resultList = search_result['result']

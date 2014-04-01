@@ -4,6 +4,14 @@ Created on Mar 30, 2014
 @author: Abhinav
 '''
 
+def printMainHeading(heading):
+    printEndLine()
+    if len(heading) > 108:
+        heading = heading[0:104] + '...'
+    print "%s %s%s" % (str('|').rjust(9),str(heading).center(97),str('|'))
+    printEndLine()
+    
+    
 def printLine(key,value):
     if len(value) > 69:
         value = value[0:69] + '...'

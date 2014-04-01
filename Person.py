@@ -4,9 +4,9 @@ Created on Mar 30, 2014
 @author: Abhinav
 '''
 from freebaseUtil import getTopPropertyLevel, getCompoundPropertyList
-from printUtil import printEndLine, printLine, printDescLine
+from printUtil import printEndLine, printLine, printDescLine, printMainHeading
 
-personPropDict = {'Name':'',
+personPropDict = {'Name':'/type/object/name',
                   'Birthday':'/people/person/date_of_birth', 
                   'Death':['/people/deceased_person/date_of_death','/people/deceased_person/place_of_death','/people/deceased_person/cause_of_death'],
                    'Place of Birth':'/people/person/place_of_birth','Description':'/common/topic/description', 
@@ -16,10 +16,10 @@ personPropDict = {'Name':'',
 
 inputJson = ''
 
-def printPersonInfo(topicJson):
+def printPersonInfo(topicJson,header):
     global inputJson
     inputJson = topicJson
-    printName()
+    printNameAndHeader(header)
     printBirthday()
     printDeath()
     printPlaceOfBirth()
@@ -27,8 +27,13 @@ def printPersonInfo(topicJson):
     printSiblings()
     printSpouses()
 
-def printName():
-    x=1
+def printNameAndHeader(header):
+    name = getTopPropertyLevel(inputJson,personPropDict['Name'])
+    if name == None:
+        return
+    printMainHeading(name[0]+header)
+    printLine('Name', name[0])
+    printEndLine()
 
 def printBirthday():
     bday = getTopPropertyLevel(inputJson,personPropDict['Birthday'])

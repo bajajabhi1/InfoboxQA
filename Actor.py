@@ -4,7 +4,7 @@ Created on Mar 30, 2014
 @author: Abhinav
 '''
 from freebaseUtil import getCompoundPropertyList
-from printUtil import *
+from printUtil import printFilmHeading, printFilmEntry, printEndLine
 
 actorPropDict = {'Films':{'top':'/film/actor/film', 
                           'property':['/film/performance/character','/film/performance/film']}}
