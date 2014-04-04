@@ -10,7 +10,7 @@ Run Command Options -
 NOTE: In case when query has multiple words then they should be in single quotes. For example,   
 python main.py AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY -q 'bill gates' -t infobox 
  
-2. python main.py -key <Freebase API key> -f <file of queries> -t <infobox|question>
+2. python mainFile.py --key <Freebase API key> -f <file of queries> -t <infobox|question>
 
 NOTE: The question has multiple words so it should be in single quotes. For example,   
-python main.py AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY -q 'Who created Microsoft?' -t infobox
+python mainFile.py --key AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY -q 'Who created Microsoft?' -t infobox
