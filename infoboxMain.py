@@ -9,6 +9,8 @@ from Author import printAuthorInfo
 from freebaseUtil import search_api, topic_api
 from Actor import printActorInfo
 from BussPerson import printBussPerInfo
+from League import printLeagueInfo
+from SportsTeam import printSportsTeamInfo
 
 key = ''
 personTypeList = ['/people/person']
@@ -45,6 +47,19 @@ def infoboxHelper(keyLocal, query):
     #    sys.exit()
     global key
     key = keyLocal
+
+    
+    #query = 'Bill Gates'
+    #query = 'Robert Downey Jr.'
+    #query = 'Jackson'
+    #query = 'NFL'
+    #query = 'NBA'
+    #query = 'NY Knicks'
+    #query = 'Miami Heat'
+    #query = 'tolkein'
+    #query = 'tom hanks'
+    query = 'JF Kennedy'
+
     # search the query
     search_result = search_api(query,key)
     #print search_result
@@ -59,57 +74,77 @@ def infoboxHelper(keyLocal, query):
         print 'No relevant type found for this query'
         sys.exit()
     
-    print mid
-    print types
+    #print mid
+    #print types
     # Get all the Properties Of Interest of each entity types
+    # Create the infobox output
     headerStr = getHeader(types)
+    isPerson = False
     isActor = False
     isBussPerson = False
     isTeam = False    
     for type in types:
         if type in personTypeList:
             printPersonInfo(topicJson,headerStr)
-    for type in types:
-        if type in authorTypeList:
-            printAuthorInfo(topicJson)
+            isPerson = True
     for type in types:
         if type in actorTypeList:
-            if isActor == False:
+            if isActor == False and isPerson == True:
                 printActorInfo(topicJson)
                 isActor = True
     for type in types:
+        if type in authorTypeList:
+            if isPerson == True:
+                printAuthorInfo(topicJson)
+    for type in types:
         if type in bussPersonTypeList:
-            if isBussPerson == False:
+            if isBussPerson == False and isPerson == True:
                 printBussPerInfo(topicJson)
                 isBussPerson = True
-    # Create the infobox output
+    if isPerson == False:
+        for type in types:
+            if type in sportsTeamTypeList:
+                if isTeam == False:
+                    printSportsTeamInfo(topicJson,headerStr)
+                    isTeam = True
+    if isPerson == False and isTeam == False:
+        for type in types:
+            if type in leagueTypeList:
+                printLeagueInfo(topicJson,headerStr)
 
 def getHeader(types):
     headerStr = '('
+    isPerson = False
     isActor = False
     isBussPerson = False
-    isTeam = False    
+    isTeam = False
     for type in types:
-        if type in authorTypeList:
-            headerStr = headerStr + 'AUTHOR, '
+        if type in personTypeList:
+            isPerson = True    
     for type in types:
         if type in actorTypeList:
-            if isActor == False:
+            if isActor == False and isPerson == True:
                 headerStr = headerStr + 'ACTOR, '
                 isActor = True
     for type in types:
+        if type in authorTypeList:
+            if isPerson == True:
+                headerStr = headerStr + 'AUTHOR, '
+    for type in types:
         if type in bussPersonTypeList:
-            if isBussPerson == False:
+            if isBussPerson == False  and isPerson == True:
                 headerStr = headerStr + 'BUSINESS_PERSON, '
                 isBussPerson = True
-    for type in types:
-        if type in leagueTypeList:
-            headerStr = headerStr + 'LEAGUE, '
-    for type in types:
-        if type in sportsTeamTypeList:
-            if isTeam == False:
-                headerStr = headerStr + 'SPORTS TEAM, '
-                isTeam = True
+    if isPerson == False:
+        for type in types:
+            if type in sportsTeamTypeList:
+                if isTeam == False:
+                    headerStr = headerStr + 'SPORTS TEAM, '
+                    isTeam = True
+    if isPerson == False and isTeam == False:
+        for type in types:
+            if type in leagueTypeList:
+                headerStr = headerStr + 'LEAGUE, '
     if headerStr[len(headerStr)-2] == ",":
         headerStr = headerStr[0:len(headerStr)-2]        
     return headerStr + ')'
@@ -118,8 +153,6 @@ def search_mids(search_result):
     resultList = search_result['result']
     midList = []
     for result in resultList:
-        #print '============================='
-        #print result['mid']
         midList.append(result['mid'])
     return midList
         

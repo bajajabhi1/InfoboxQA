@@ -9,7 +9,7 @@ from printUtil import printEndLine, printLine, printDescLine, printMainHeading
 personPropDict = {'Name':'/type/object/name',
                   'Birthday':'/people/person/date_of_birth', 
                   'Death':['/people/deceased_person/date_of_death','/people/deceased_person/place_of_death','/people/deceased_person/cause_of_death'],
-                   'Place of Birth':'/people/person/place_of_birth','Description':'/common/topic/description', 
+                   'Place of birth':'/people/person/place_of_birth','Description':'/common/topic/description', 
                   'Siblings':{'top':'/people/person/sibling_s','property':['/people/sibling_relationship/sibling']},
                   'Spouses':{'top':'/people/person/spouse_s', 'property':['/people/marriage/spouse','/people/marriage/from',
                                                                            '/people/marriage/to','/people/marriage/location_of_ceremony']}}
@@ -54,18 +54,20 @@ def printDeath():
     
     deathCause = getTopPropertyLevel(inputJson,personPropDict['Death'][2])
     if deathCause != None:
-        deathStr = deathStr + ', cause: (' + deathCause[0] + ')'
-    
+        deathStr = deathStr + ', cause: (' + deathCause[0]
+        for i in range (1,len(deathCause)):
+            deathStr = deathStr + ', ' + deathCause[i]
+        deathStr = deathStr + ')'
     if deathStr == '':
         return
     printLine('Death', deathStr)
     printEndLine()
 
 def printPlaceOfBirth():
-    pob = getTopPropertyLevel(inputJson,personPropDict['Place of Birth'])
+    pob = getTopPropertyLevel(inputJson,personPropDict['Place of birth'])
     if pob == None:
         return
-    printLine('Place of Birth', pob[0])
+    printLine('Place of birth', pob[0])
     printEndLine()
 
 def printDescription():
