@@ -39,7 +39,9 @@ def main():
         if queryType == "infobox":
             infoboxMain.infoboxHelper(key, query)
         elif queryType == "question":
-            creationObj = re.match(r'Who created (.*)\?', query)
+            query = query.lower()
+            creationObj = re.match(r'who created (.*)\?', query)
+            #print creationObj.group(1)
             if creationObj==None:
                 print "Wrong question!!!"
                 sys.exit(0)     
@@ -60,7 +62,7 @@ def main():
         elif queryType == "question":
             f = open(fileName)
             for line in f:
-                creationObj = re.match(r'Who created (.*)\?', line)
+                creationObj = re.match(r'who created (.*)\?', line.lower())
                 if creationObj==None:
                     print "Wrong question!!!"
                     sys.exit(0)     
