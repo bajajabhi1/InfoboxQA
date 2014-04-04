@@ -70,7 +70,7 @@ def printDescription():
 
 def printCoaches():
     listOfCoaches = getCompoundPropertyListMulti(inputJson,sportsTeamPropDict['Coaches']['top'], sportsTeamPropDict['Coaches']['property'])
-    if listOfCoaches == None:
+    if listOfCoaches == None or listOfCoaches == []:
         return
     #print listOfCoaches
     printCoachHeading('Coaches',['Name','Position','From/To']);
@@ -102,7 +102,7 @@ def printPlayers():
     if listOfPlayers == None:
         return
     printPlayerHeading('PlayersRoster',['Name','Position','Number','From/To']);
-    for players in listOfPlayers:
+    for players in listOfPlayers or listOfPlayers == []:
         #print players
         posStr = ''
         if type(players[1]) is list:
@@ -137,7 +137,7 @@ def combineListToStr(listInput):
 
 def printLeagues():
     listOfLeagues = getCompoundPropertyList(inputJson,sportsTeamPropDict['Leagues']['top'], sportsTeamPropDict['Leagues']['property'])
-    if listOfLeagues == None:
+    if listOfLeagues == None or listOfLeagues == []:
         return
     printLine('Leagues',listOfLeagues[0][0])
     for i in range (1,len(listOfLeagues)):

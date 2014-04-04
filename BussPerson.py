@@ -34,7 +34,7 @@ def printFounded():
 def printLeadership():
     listOfLeadership = getCompoundPropertyList(inputJson,bussPersonPropDict['Leadership']['top'], bussPersonPropDict['Leadership']['property'])
     #print listOfLeadership
-    if listOfLeadership == None:
+    if listOfLeadership == None or listOfLeadership == []:
         return
     printBussHeading('Leadership',['Organization','Role','Title','From-To']);
     for leaders in listOfLeadership:
@@ -51,7 +51,7 @@ def printLeadership():
 def printBoardM():
     listOfMembership = getCompoundPropertyList(inputJson,bussPersonPropDict['Board Member']['top'], bussPersonPropDict['Board Member']['property'])
     #print listOfMembership
-    if listOfMembership == None:
+    if listOfMembership == None or listOfMembership == []:
         return
     printBussHeading('Board Member',['Organization','Role','Title','From/To']);
     for members in listOfMembership:

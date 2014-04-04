@@ -72,7 +72,7 @@ def printPlaceOfBirth():
 
 def printDescription():
     desc = getTopPropertyLevel(inputJson,personPropDict['Description'])
-    if desc == None:
+    if desc == None :
         return
     lineList = [desc[0][i:i+81] for i in range(0, len(desc[0]), 81)]
     printDescLine('Description', lineList[0])
@@ -82,7 +82,7 @@ def printDescription():
 
 def printSiblings():
     listOfsiblings = getCompoundPropertyList(inputJson,personPropDict['Siblings']['top'], personPropDict['Siblings']['property'])
-    if listOfsiblings == None:
+    if listOfsiblings == None or listOfsiblings == []:
         return
     printLine('Siblings',listOfsiblings[0][0])
     for i in range (1,len(listOfsiblings)):
@@ -91,7 +91,7 @@ def printSiblings():
 
 def printSpouses():
     listOfSpouses = getCompoundPropertyList(inputJson,personPropDict['Spouses']['top'], personPropDict['Spouses']['property'])
-    if listOfSpouses == None:
+    if listOfSpouses == None or listOfSpouses == []:
         return
     #print listOfSpouses
     spouseStr = ''

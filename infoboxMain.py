@@ -41,6 +41,7 @@ def infoboxHelper(keyLocal, query):
     # take the top relevant mid and search for it        
     # find all the 6 entity types in this entity
     [mid, topicJson, types] = search_top_topic(midList)
+    print mid
     #print topicJson
     if mid == None:
         print 'No relevant type found for this query'

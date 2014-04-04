@@ -78,7 +78,7 @@ def printDescription():
 
 def printTeams():
     listOfTeams = getCompoundPropertyList(inputJson,leaguePropDict['Teams']['top'], leaguePropDict['Teams']['property'])
-    if listOfTeams == None:
+    if listOfTeams == None or listOfTeams == []:
         return
     printLine('Teams',listOfTeams[0][0])
     for i in range (1,len(listOfTeams)):

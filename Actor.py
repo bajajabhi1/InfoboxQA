@@ -18,7 +18,7 @@ def printActorInfo(topicJson):
 
 def printFilms():
     listOfFilms = getCompoundPropertyList(inputJson,actorPropDict['Films']['top'], actorPropDict['Films']['property'])
-    if listOfFilms == None:
+    if listOfFilms == None or listOfFilms == []:
         return
     printFilmHeading('Films',['Character','Film Name'])
     #print listOfFilms
