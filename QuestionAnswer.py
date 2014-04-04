@@ -2,7 +2,7 @@ import re
 import urllib
 import urllib2
 import json
-
+import sys
 import collections
 def questionAnswering(api_key, creation):
     
@@ -29,15 +29,15 @@ def questionAnswering(api_key, creation):
         
         conjunct = ""
         for works in entry['works_written']:
-            written_works = written_works + conjunct+" <"+works['a:name']+">"
+            written_works = written_works + conjunct+"<"+works['a:name']+">"
             n = n - 1
             if n == 1:
-                conjunct = " and"
+                conjunct = " and "
             else:
-                conjunct = ","
+                conjunct = ", "
                
         if written_works!= "":
-            result[entry['name']] =  "(as Author) created"+ written_works
+            result[entry['name']+" (as Author) created"] =   written_works
 
         
 
@@ -58,19 +58,20 @@ def questionAnswering(api_key, creation):
         n = len(entry['organizations_founded'])
         conjunct = ""
         for org in entry['organizations_founded']:
-            companies = companies + conjunct+" <"+org['a:name']+">"
+            companies = companies + conjunct+"<"+org['a:name']+">"
             n = n-1
             if n==1:
-                conjunct = " and"
+                conjunct = " and "
             else:
-                conjunct = ","
+                conjunct = ", "
                 
         if companies!="":
-            result[entry['name']] = "(as Businessperson) created"+companies
+            result[entry['name']+" (as Businessperson) created"] = companies
 
     od = collections.OrderedDict(sorted(result.items()))
     
     count = 1
+ 
     for k, v in od.iteritems():
         print str(count)+". " + k, v
         count = count + 1

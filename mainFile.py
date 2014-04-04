@@ -5,11 +5,11 @@ import QuestionAnswer
 import infoboxMain
 class MyOptionParser(OptionParser):
     def error(self, msg):
-        error = """1. -key <account_key> -q <query> -t [infobox|question]
+        error = """1. --key <account_key> -q <query> -t [infobox|question]
                 If the type is infobox (i.e., -t infobox) the system tries to find the most relevant entity to the query <query> and create an infobox about it.
                 If the type is question (i.e., -t question), the system tries to answer the question if it is of type "Who created [X]?".
                 Note that the query has to be given as a single parameter.
-                2. -key <account_key> -f <file_with_queries> -t [infobox|question]
+                2. --key <account_key> -f <file_with_queries> -t [infobox|question]
                 If the type is infobox (i.e. -t infobox) the system read the file <file_with_queries> an treat each line as a query for infox creation.
                 If the type is question (i.e., -t question), the system treats each line of the <file_with_queris> files as a "Who created [X]?" question and tries to answer it.
                 Note that the file name has to be given as a single parameter. """
@@ -44,6 +44,10 @@ def main():
                 print "Wrong question!!!"
                 sys.exit(0)     
             creation = creationObj.group(1)
+            if creation.strip()=="":
+                print "Wrong question!!!"
+                sys.exit(0)
+            
             QuestionAnswer.questionAnswering(key, creation)
         else:
             parser.error('error')
@@ -61,6 +65,9 @@ def main():
                     print "Wrong question!!!"
                     sys.exit(0)     
                 creation = creationObj.group(1)
+                if creation.strip()=="":
+                    print "Wrong question!!!"
+                    sys.exit(0)
                 QuestionAnswer.questionAnswering(key, creation)
             f.close()
         else:
