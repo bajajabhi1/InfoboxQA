@@ -26,7 +26,7 @@ leaguePropList = ['/sports/sports_league']
 sportsPropList = ['/sports/sports_team', '/sports/professional_sports_team']
     
 
-def main():
+def infoboxHelper(keyLocal, query):
     #if len(sys.argv) != 4:
     #    print 'Running command is python main.py <bing account key> <precision> \'<query>\''
     #    sys.exit()
@@ -44,8 +44,7 @@ def main():
     #    print 'Please enter a valid precision value (0-1)'
     #    sys.exit()
     global key
-    key  = 'AIzaSyBuMq3W5wfLezCtWX9rIZXbGSXNtCCG7hY'
-    query = 'tom hanks'
+    key = keyLocal
     # search the query
     search_result = search_api(query,key)
     #print search_result
@@ -144,5 +143,3 @@ def search_top_topic(midList):
     else:
         return None
 
-if __name__ == "__main__":
-    main()
