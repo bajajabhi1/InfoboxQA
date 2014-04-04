@@ -99,10 +99,10 @@ def printCoaches():
 def printPlayers():
     listOfPlayers = getCompoundPropertyListMulti(inputJson,sportsTeamPropDict['PlayersRoster']['top'], sportsTeamPropDict['PlayersRoster']['property'])
     #print listOfPlayers
-    if listOfPlayers == None:
+    if listOfPlayers == None or listOfPlayers == []:
         return
     printPlayerHeading('PlayersRoster',['Name','Position','Number','From/To']);
-    for players in listOfPlayers or listOfPlayers == []:
+    for players in listOfPlayers:
         #print players
         posStr = ''
         if type(players[1]) is list:
@@ -130,6 +130,8 @@ def printPlayers():
     printEndLine()
 
 def combineListToStr(listInput):
+    if listInput == [] or listInput == '':
+        return ''
     posStr = listInput[0]
     for i in range (1,len(listInput)):
         posStr = posStr +', '+ listInput[i]
