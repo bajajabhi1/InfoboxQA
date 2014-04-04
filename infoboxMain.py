@@ -46,7 +46,10 @@ def infoboxHelper(keyLocal, query):
     #print mid
     #print topicJson
     if mid == None:
-        print 'No related information about query [' + query + '] was found!'
+        if query[len(query)-1] == '\n':
+            query = query[0:len(query)-1]
+        strmsg = 'No related information about query [' + query + '] was found!'
+        print strmsg
         sys.exit()
     
     #print mid

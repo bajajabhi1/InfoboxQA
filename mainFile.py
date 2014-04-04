@@ -57,11 +57,15 @@ def main():
         if queryType == "infobox":
             f = open(fileName)
             for line in f:
+                strmsg = 'Query-Question: ' + line
+                print strmsg
                 infoboxMain.infoboxHelper(key, line)
             f.close()
         elif queryType == "question":
             f = open(fileName)
             for line in f:
+                strmsg = 'Query-Question: ' + line
+                print strmsg
                 creationObj = re.match(r'who created (.*)\?', line.lower())
                 if creationObj==None:
                     print "Wrong question!!!"
