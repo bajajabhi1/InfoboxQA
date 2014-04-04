@@ -29,37 +29,9 @@ sportsPropList = ['/sports/sports_team', '/sports/professional_sports_team']
     
 
 def infoboxHelper(keyLocal, query):
-    #if len(sys.argv) != 4:
-    #    print 'Running command is python main.py <bing account key> <precision> \'<query>\''
-    #    sys.exit()
-    
-    #query = sys.argv[3]
-    #targetPrec = sys.argv[2]
-    #global accountKey
-    #accountKey = sys.argv[1]
-    #try:
-    #    targetPrec = float(targetPrec)
-    #    if targetPrec<=0.0 or targetPrec>1.0:
-    #        print 'Please enter a valid precision value (0-1)'
-    #        sys.exit()
-    #except ValueError:
-    #    print 'Please enter a valid precision value (0-1)'
-    #    sys.exit()
     global key
     key = keyLocal
-
     
-    #query = 'Bill Gates'
-    #query = 'Robert Downey Jr.'
-    #query = 'Jackson'
-    #query = 'NFL'
-    #query = 'NBA'
-    #query = 'NY Knicks'
-    #query = 'Miami Heat'
-    #query = 'tolkein'
-    #query = 'tom hanks'
-    query = 'JF Kennedy'
-
     # search the query
     search_result = search_api(query,key)
     #print search_result
