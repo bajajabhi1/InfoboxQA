@@ -6,7 +6,7 @@ Created on Mar 30, 2014
 from freebaseUtil import getTopPropertyLevel, getCompoundPropertyList, getCompoundPropertyListMulti
 from printUtil import *
 
-sportsTeamPropDict = {'Name':'/type/object/name', 'Sport':'/sports/sports_league/sport',
+sportsTeamPropDict = {'Name':'/type/object/name', 'Sport':'/sports/sports_team/sport',
                   'Arena':'/sports/sports_team/arena_stadium', 'Championships':'/sports/sports_team/championships',
                    'Founded':'/sports/sports_team/founded', 'Locations':'/sports/sports_team/location',
                   'Leagues':{'top':'/sports/sports_team/league','property':['/sports/sports_league_participation/league']},
@@ -16,8 +16,6 @@ sportsTeamPropDict = {'Name':'/type/object/name', 'Sport':'/sports/sports_league
                   'Coaches':{'top':'/sports/sports_team/coaches', 'property':['/sports/sports_team_coach_tenure/coach',
                                     '/sports/sports_team_coach_tenure/position','/sports/sports_team_coach_tenure/from',
                                     '/sports/sports_team_coach_tenure/to']},
-                  #'Spouses':{'top':'/people/person/spouse_s', 'property':['/people/marriage/spouse','/people/marriage/from',
-                  #                                                         '/people/marriage/to','/people/marriage/location_of_ceremony']},
                   'Description':'/common/topic/description'}
 
 inputJson = ''
@@ -30,9 +28,9 @@ def printSportsTeamInfo(topicJson,header):
     printSingle('Arena')
     printMultiple('Championships')
     printSingle('Founded')
+    printLeagues()
     printSingle('Locations')
     printCoaches()
-    printLeagues()
     printPlayers()
     printDescription()
 
@@ -74,7 +72,7 @@ def printCoaches():
     listOfCoaches = getCompoundPropertyListMulti(inputJson,sportsTeamPropDict['Coaches']['top'], sportsTeamPropDict['Coaches']['property'])
     if listOfCoaches == None:
         return
-    print listOfCoaches
+    #print listOfCoaches
     printCoachHeading('Coaches',['Name','Position','From/To']);
     for coaches in listOfCoaches:
         #print players
@@ -91,7 +89,7 @@ def printCoaches():
         tmpEntry = [nameStr, posStr]
         if coaches[2] == ['']:
             tmpEntry.append('')
-        elif coaches[3] == ['']:
+        elif coaches[3] == [''] or coaches[3] == '':
             tmpEntry.append(combineListToStr(coaches[2]) + ' / ' + 'now')
         else:
             tmpEntry.append(combineListToStr(coaches[2]) + ' / ' + combineListToStr(coaches[3]))
