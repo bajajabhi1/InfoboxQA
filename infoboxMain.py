@@ -37,14 +37,16 @@ def infoboxHelper(keyLocal, query):
     #print search_result
     # find all the mids from the initial query
     midList = search_mids(search_result)
+    #print midList
     # the mids from this result should be filtered for having one of the 6 entity types given
     # take the top relevant mid and search for it        
     # find all the 6 entity types in this entity
     [mid, topicJson, types] = search_top_topic(midList)
-    print mid
+    #print mid, types
+    #print mid
     #print topicJson
     if mid == None:
-        print 'No relevant type found for this query'
+        print 'No related information about query [' + query + '] was found!'
         sys.exit()
     
     #print mid
@@ -130,10 +132,10 @@ def search_mids(search_result):
     return midList
         
 def search_top_topic(midList):
-    for mid in midList:
+    for i in range (0,len(midList)):
         types = []
         found = False
-        result = topic_api(mid,key)
+        result = topic_api(midList[i],key)
         values = result['property']['/type/object/type']['values']
         for value in values:
             type = value['id'].encode("iso-8859-15", "replace")
@@ -143,9 +145,12 @@ def search_top_topic(midList):
         #print types
         if found == True:
             break
+        else:
+            if (i+1)%5 == 0:
+                print str(i+1) +' Search API result entries were considered. None of them of a supported type.'
     
     if found ==True:
-        return mid,result,types
+        return midList[i],result,types
     else:
-        return None
+        return None,None,None
 

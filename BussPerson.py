@@ -38,7 +38,15 @@ def printLeadership():
         return
     printBussHeading('Leadership',['Organization','Role','Title','From-To']);
     for leaders in listOfLeadership:
-        tmpEntry = [leaders[0], leaders[1],leaders[2]]
+        tmpEntry = [leaders[0]]
+        if leaders[1] == '':
+            tmpEntry.append('')
+        else:
+            tmpEntry.append(leaders[1])
+        if leaders[2] == '':
+            tmpEntry.append('')
+        else:
+            tmpEntry.append(leaders[2])
         if leaders[3] == '':
             tmpEntry.append('')
         elif leaders[4] == '':
@@ -55,7 +63,15 @@ def printBoardM():
         return
     printBussHeading('Board Member',['Organization','Role','Title','From/To']);
     for members in listOfMembership:
-        tmpEntry = [members[0], members[1],members[2]]
+        tmpEntry = [members[0]]
+        if members[1] == '':
+            tmpEntry.append('')
+        else:
+            tmpEntry.append(members[1])
+        if members[2] == '':
+            tmpEntry.append('')
+        else:
+            tmpEntry.append(members[2])
         if members[3] == '':
             tmpEntry.append('')
         elif members[4] == '':
