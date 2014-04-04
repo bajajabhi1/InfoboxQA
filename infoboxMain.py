@@ -96,6 +96,7 @@ def getHeader(types):
     isActor = False
     isBussPerson = False
     isTeam = False
+     # Get all the project entity type of each freebase entity types
     for type in types:
         if type in personTypeList:
             isPerson = True    

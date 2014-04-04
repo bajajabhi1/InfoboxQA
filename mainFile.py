@@ -18,6 +18,7 @@ class MyOptionParser(OptionParser):
 
 
 def main():
+    # parse the input options
     parser = MyOptionParser()
     parser.add_option("--key", dest="key")
     parser.add_option("-q", dest="query")
@@ -35,6 +36,7 @@ def main():
     if not key or not (query or fileName) or not queryType:
         parser.error('error')
 
+    # check for query types
     if query:
         if queryType == "infobox":
             infoboxMain.infoboxHelper(key, query)
@@ -53,16 +55,19 @@ def main():
             QuestionAnswer.questionAnswering(key, creation)
         else:
             parser.error('error')
-    elif fileName:
+    elif fileName: # file type query
         if queryType == "infobox":
             f = open(fileName)
+            # run loop for all queries
             for line in f:
                 strmsg = 'Query-Question: ' + line
                 print strmsg
+                # Call the infobox main handler
                 infoboxMain.infoboxHelper(key, line)
             f.close()
         elif queryType == "question":
             f = open(fileName)
+            # run loop for all queries
             for line in f:
                 strmsg = 'Query-Question: ' + line
                 print strmsg
@@ -74,17 +79,12 @@ def main():
                 if creation.strip()=="":
                     print "Wrong question!!!"
                     sys.exit(0)
+                # Call the Question Answer handler
                 QuestionAnswer.questionAnswering(key, creation)
             f.close()
         else:
             parser.error('error')
 
-         
-            
-            
-            
-    
-    
 
 if __name__ == "__main__":
     main()
