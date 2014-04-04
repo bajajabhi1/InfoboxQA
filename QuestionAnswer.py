@@ -8,8 +8,8 @@ def questionAnswering(api_key, creation):
     
     #api_key = "AIzaSyAIB0OSE8CQ4yETwSFefsMh0_k1RMnT2k4"
 
+    #mql query to get list of authors
     mqlQuery = [{"works_written": [{ "a:name": None,"name~=": creation }], "id": None, "name": None, "type": "/book/author"}]
-    #mqlQuery = [{"type": "/book/written_work", "author": [],"name~=": creation, "a:name": None }]
     params = {
             'query':json.dumps(mqlQuery),
             'key': api_key
@@ -22,7 +22,8 @@ def questionAnswering(api_key, creation):
     response = json.loads(urllib.urlopen(url).read())
 
     result = {}
-    #print response['result']
+
+    #putting the entries in a dictionary where key is author and value is string with all books
     for entry in response['result']:
         written_works = ""
         n = len(entry['works_written'])
@@ -40,7 +41,7 @@ def questionAnswering(api_key, creation):
             result[entry['name']+" (as Author) created"] =   written_works
 
         
-
+    #mql query to get list of founders
         
     mqlQuery = [{ "organizations_founded": [{ "a:name": None, "name~=": creation }], "id": None, "name": None, "type": "/organization/organization_founder"}]
     params = {
@@ -52,6 +53,7 @@ def questionAnswering(api_key, creation):
 
     #print response['result']
 
+    #putting the entries in a dictionary where key is founder and value is string with all organizations
     for entry in response['result']:
         
         companies = ""
@@ -68,10 +70,12 @@ def questionAnswering(api_key, creation):
         if companies!="":
             result[entry['name']+" (as Businessperson) created"] = companies
 
+    # sort the results based on creator name
     od = collections.OrderedDict(sorted(result.items()))
     
     count = 1
 
+    # if results are empty prints appropriate message
     if len(od)==0:
         print "It seems no one created ["+ creation+"]!!!"
     else:
