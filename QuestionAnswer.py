@@ -70,11 +70,11 @@ def questionAnswering(api_key, creation):
 
     od = collections.OrderedDict(sorted(result.items()))
     
-    count = 1
+    count = "1"
  
     for k, v in od.iteritems():
-        print str(count)+". " + k, v
-        count = count + 1
+        print count.encode('utf-8')+". " + k, v
+        count = str(int(count) + 1)
 
     
 
