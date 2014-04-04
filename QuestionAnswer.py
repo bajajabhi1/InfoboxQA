@@ -71,10 +71,13 @@ def questionAnswering(api_key, creation):
     od = collections.OrderedDict(sorted(result.items()))
     
     count = 1
- 
-    for k, v in od.iteritems():
-        print str(count)+". " + k.encode("iso-8859-15", "replace"), v.encode("iso-8859-15", "replace")
-        count = count+ 1
+
+    if len(od)==0:
+        print "It seems no one created ["+ creation+"]!!!"
+    else:
+        for k, v in od.iteritems():
+            print str(count)+". " + k.encode("iso-8859-15", "replace"), v.encode("iso-8859-15", "replace")
+            count = count+ 1
 
     
 
